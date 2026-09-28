@@ -1,0 +1,1677 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Department of Computer Science | XYZ University</title>
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: "Inter", sans-serif;
+            color: #fff;
+            background:
+                radial-gradient(circle at 10% 20%, rgba(0, 212, 255, 0.18), transparent 30%),
+                radial-gradient(circle at 90% 80%, rgba(124, 58, 237, 0.20), transparent 30%),
+                #050816;
+            overflow-x: hidden;
+        }
+
+        /* Animated background */
+        .background {
+            position: fixed;
+            inset: 0;
+            z-index: -10;
+            overflow: hidden;
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: .35;
+            animation: floatOrb 10s ease-in-out infinite alternate;
+        }
+
+        .orb1 {
+            width: 350px;
+            height: 350px;
+            background: #00d4ff;
+            top: -100px;
+            left: -100px;
+        }
+
+        .orb2 {
+            width: 400px;
+            height: 400px;
+            background: #7c3aed;
+            right: -150px;
+            bottom: -100px;
+            animation-delay: -3s;
+        }
+
+        .orb3 {
+            width: 220px;
+            height: 220px;
+            background: #06ffa5;
+            left: 45%;
+            top: 40%;
+            animation-delay: -6s;
+        }
+
+        @keyframes floatOrb {
+            from {
+                transform: translate(0, 0) scale(1);
+            }
+            to {
+                transform: translate(80px, -50px) scale(1.2);
+            }
+        }
+
+        /* Particles */
+        #particles {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: -5;
+        }
+
+        /* Navbar */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 18px 6%;
+            z-index: 1000;
+            transition: .4s;
+        }
+
+        header.scrolled {
+            background: rgba(5, 8, 22, .82);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 10px 40px rgba(0,0,0,.25);
+        }
+
+        nav {
+            max-width: 1250px;
+            margin: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-family: "Poppins", sans-serif;
+            font-weight: 800;
+            font-size: 1.15rem;
+        }
+
+        .logo-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 14px;
+            display: grid;
+            place-items: center;
+            background: linear-gradient(135deg, #00d4ff, #7c3aed);
+            box-shadow: 0 0 30px rgba(0,212,255,.35);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 8px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: rgba(255,255,255,.75);
+            text-decoration: none;
+            padding: 10px 15px;
+            border-radius: 30px;
+            transition: .3s;
+            font-size: .9rem;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: white;
+            background: rgba(255,255,255,.1);
+        }
+
+        .menu-btn {
+            display: none;
+            background: transparent;
+            color: white;
+            border: none;
+            font-size: 1.7rem;
+            cursor: pointer;
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            max-width: 1250px;
+            margin: auto;
+            padding: 130px 6% 70px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .hero-content {
+            animation: heroIn 1s ease forwards;
+        }
+
+        @keyframes heroIn {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 14px;
+            border: 1px solid rgba(255,255,255,.15);
+            background: rgba(255,255,255,.06);
+            border-radius: 50px;
+            color: #8be9ff;
+            font-size: .8rem;
+            margin-bottom: 20px;
+            backdrop-filter: blur(15px);
+        }
+
+        .tag span {
+            width: 8px;
+            height: 8px;
+            background: #00ffa3;
+            border-radius: 50%;
+            box-shadow: 0 0 12px #00ffa3;
+        }
+
+        h1 {
+            font-family: "Poppins", sans-serif;
+            font-size: clamp(2.7rem, 6vw, 5.5rem);
+            line-height: 1.02;
+            margin-bottom: 22px;
+        }
+
+        .gradient-text {
+            background: linear-gradient(90deg, #00d4ff, #8b5cf6, #06ffa5);
+            -webkit-background-clip: text;
+            color: transparent;
+            background-size: 200%;
+            animation: gradientMove 4s linear infinite;
+        }
+
+        @keyframes gradientMove {
+            0% { background-position: 0%; }
+            100% { background-position: 200%; }
+        }
+
+        .hero p {
+            color: rgba(255,255,255,.65);
+            font-size: 1.05rem;
+            line-height: 1.8;
+            max-width: 600px;
+            margin-bottom: 30px;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            padding: 14px 22px;
+            border-radius: 14px;
+            color: white;
+            font-weight: 700;
+            transition: .3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #00bfff, #6d28d9);
+            box-shadow: 0 12px 30px rgba(0,191,255,.2);
+        }
+
+        .btn-secondary {
+            background: rgba(255,255,255,.06);
+            border: 1px solid rgba(255,255,255,.12);
+        }
+
+        .btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 35px rgba(0,0,0,.25);
+        }
+
+        /* 3D Visualization */
+        .visual-area {
+            height: 550px;
+            position: relative;
+            perspective: 1000px;
+        }
+
+        #three-container {
+            width: 100%;
+            height: 100%;
+        }
+
+        .visual-label {
+            position: absolute;
+            left: 50%;
+            bottom: 15px;
+            transform: translateX(-50%);
+            padding: 10px 18px;
+            background: rgba(255,255,255,.07);
+            border: 1px solid rgba(255,255,255,.12);
+            backdrop-filter: blur(15px);
+            border-radius: 30px;
+            color: rgba(255,255,255,.7);
+            font-size: .75rem;
+            white-space: nowrap;
+        }
+
+        /* Stats */
+        .stats {
+            max-width: 1150px;
+            margin: -30px auto 80px;
+            padding: 0 6%;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+
+        .stat {
+            padding: 25px;
+            border: 1px solid rgba(255,255,255,.1);
+            background: rgba(255,255,255,.05);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            text-align: center;
+            transition: .3s;
+        }
+
+        .stat:hover {
+            transform: translateY(-8px);
+            border-color: rgba(0,212,255,.4);
+        }
+
+        .stat h3 {
+            font-size: 2rem;
+            color: #65e6ff;
+        }
+
+        .stat p {
+            color: rgba(255,255,255,.55);
+            margin-top: 5px;
+            font-size: .8rem;
+        }
+
+        /* Sections */
+        section {
+            max-width: 1150px;
+            margin: auto;
+            padding: 90px 6%;
+        }
+
+        .section-heading {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-heading span {
+            color: #00d4ff;
+            font-size: .8rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .section-heading h2 {
+            font-family: "Poppins";
+            font-size: clamp(2rem, 4vw, 3.2rem);
+            margin-top: 8px;
+        }
+
+        .section-heading p {
+            color: rgba(255,255,255,.55);
+            max-width: 600px;
+            margin: 15px auto 0;
+            line-height: 1.7;
+        }
+
+        /* Cards */
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+        }
+
+        .card {
+            position: relative;
+            padding: 28px 20px;
+            min-height: 190px;
+            border-radius: 22px;
+            background: linear-gradient(
+                145deg,
+                rgba(255,255,255,.09),
+                rgba(255,255,255,.025)
+            );
+            border: 1px solid rgba(255,255,255,.1);
+            backdrop-filter: blur(15px);
+            overflow: hidden;
+            transition: .4s;
+        }
+
+        .card::before {
+            content: "";
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            background: #00d4ff;
+            filter: blur(70px);
+            opacity: .15;
+            right: -50px;
+            top: -50px;
+        }
+
+        .card:hover {
+            transform: translateY(-10px) rotateX(3deg);
+            border-color: rgba(0,212,255,.35);
+        }
+
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 15px;
+            display: grid;
+            place-items: center;
+            background: rgba(0,212,255,.12);
+            color: #5ee7ff;
+            font-size: 1.4rem;
+            margin-bottom: 18px;
+        }
+
+        .card h3 {
+            margin-bottom: 8px;
+        }
+
+        .card p {
+            color: rgba(255,255,255,.55);
+            font-size: .85rem;
+            line-height: 1.6;
+        }
+
+        /* Faculty */
+        .faculty-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .faculty {
+            padding: 28px;
+            text-align: center;
+            border-radius: 24px;
+            background: rgba(255,255,255,.05);
+            border: 1px solid rgba(255,255,255,.1);
+            backdrop-filter: blur(15px);
+            transition: .4s;
+        }
+
+        .faculty:hover {
+            transform: translateY(-10px);
+        }
+
+        .avatar {
+            width: 90px;
+            height: 90px;
+            margin: 0 auto 18px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #00d4ff, #7c3aed);
+            box-shadow: 0 10px 35px rgba(0,212,255,.2);
+        }
+
+        .faculty h3 {
+            margin-bottom: 5px;
+        }
+
+        .faculty .role {
+            color: #61dcff;
+            font-size: .85rem;
+            margin-bottom: 10px;
+        }
+
+        .faculty p {
+            color: rgba(255,255,255,.55);
+            font-size: .8rem;
+        }
+
+        /* Notices */
+        .notice-box {
+            padding: 25px;
+            border-radius: 24px;
+            background: linear-gradient(
+                135deg,
+                rgba(0,212,255,.08),
+                rgba(124,58,237,.08)
+            );
+            border: 1px solid rgba(255,255,255,.1);
+        }
+
+        .notice {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            padding: 18px;
+            border-bottom: 1px solid rgba(255,255,255,.08);
+        }
+
+        .notice:last-child {
+            border-bottom: none;
+        }
+
+        .notice-number {
+            width: 36px;
+            height: 36px;
+            min-width: 36px;
+            border-radius: 50%;
+            background: rgba(0,212,255,.12);
+            color: #61e7ff;
+            display: grid;
+            place-items: center;
+            font-weight: 700;
+        }
+
+        .notice p {
+            color: rgba(255,255,255,.7);
+        }
+
+        /* Contact */
+        .contact-box {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            padding: 35px;
+            border-radius: 28px;
+            background: rgba(255,255,255,.05);
+            border: 1px solid rgba(255,255,255,.1);
+            backdrop-filter: blur(15px);
+        }
+
+        .contact-item {
+            padding: 20px;
+            border-radius: 18px;
+            background: rgba(255,255,255,.04);
+        }
+
+        .contact-item span {
+            display: block;
+            color: #00d4ff;
+            font-size: .75rem;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .contact-item p {
+            color: rgba(255,255,255,.7);
+            line-height: 1.7;
+        }
+
+        /* Footer */
+        footer {
+            padding: 35px 20px;
+            text-align: center;
+            border-top: 1px solid rgba(255,255,255,.08);
+            color: rgba(255,255,255,.45);
+            font-size: .8rem;
+        }
+
+        /* Scroll reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: 1s ease;
+        }
+
+        .reveal.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Modal */
+        .modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,.7);
+            backdrop-filter: blur(10px);
+            display: none;
+            place-items: center;
+            z-index: 2000;
+            padding: 20px;
+        }
+
+        .modal.show {
+            display: grid;
+        }
+
+        .modal-content {
+            max-width: 500px;
+            width: 100%;
+            padding: 35px;
+            border-radius: 25px;
+            background: #10152a;
+            border: 1px solid rgba(255,255,255,.15);
+            box-shadow: 0 30px 100px rgba(0,0,0,.5);
+            animation: modalIn .3s ease;
+        }
+
+        @keyframes modalIn {
+            from {
+                opacity: 0;
+                transform: scale(.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .modal-content h2 {
+            margin-bottom: 12px;
+        }
+
+        .modal-content p {
+            color: rgba(255,255,255,.65);
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .close-modal {
+            float: right;
+            border: none;
+            background: rgba(255,255,255,.08);
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        /* Responsive */
+        @media(max-width: 900px) {
+            .hero {
+                grid-template-columns: 1fr;
+                text-align: center;
+                padding-top: 120px;
+            }
+
+            .hero p {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .buttons {
+                justify-content: center;
+            }
+
+            .visual-area {
+                height: 400px;
+            }
+
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .faculty-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-box {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                position: absolute;
+                top: 75px;
+                left: 6%;
+                right: 6%;
+                display: none;
+                flex-direction: column;
+                background: rgba(10,15,35,.95);
+                padding: 15px;
+                border-radius: 20px;
+                backdrop-filter: blur(20px);
+            }
+
+            .nav-links.show {
+                display: flex;
+            }
+
+            .nav-links a {
+                text-align: center;
+            }
+
+            .menu-btn {
+                display: block;
+            }
+        }
+
+        @media(max-width: 550px) {
+            .stats,
+            .cards {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 2.7rem;
+            }
+
+            .visual-area {
+                height: 320px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- Animated background -->
+<div class="background">
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+    <div class="orb orb3"></div>
+</div>
+
+<canvas id="particles"></canvas>
+
+<!-- Navigation -->
+<header id="header">
+    <nav>
+        <div class="logo">
+            <div class="logo-icon">⌘</div>
+            <span>CS • XYZ University</span>
+        </div>
+
+        <button class="menu-btn" id="menuBtn">☰</button>
+
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#home" class="active">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#programs">Programs</a></li>
+            <li><a href="#faculty">Faculty</a></li>
+            <li><a href="#notices">Notices</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+</header>
+
+<!-- Hero -->
+<main id="home" class="hero">
+
+    <div class="hero-content">
+        <div class="tag">
+            <span></span>
+            Department of Computer Science
+        </div>
+
+        <h1>
+            Build the <br>
+            <span class="gradient-text">Future of Technology.</span>
+        </h1>
+
+        <p>
+            Welcome to the Department of Computer Science at XYZ University.
+            We provide quality education and develop technical, creative and
+            problem-solving skills for the next generation of technology leaders.
+        </p>
+
+        <div class="buttons">
+            <a href="#programs" class="btn btn-primary">
+                Explore Programs →
+            </a>
+
+            <button class="btn btn-secondary" onclick="openModal()">
+                View Department
+            </button>
+        </div>
+    </div>
+
+    <!-- 3D visualization -->
+    <div class="visual-area">
+        <div id="three-container"></div>
+        <div class="visual-label">
+            ✦ Interactive 3D Computer Science Visualization
+        </div>
+    </div>
+
+</main>
+
+<!-- Stats -->
+<div class="stats reveal">
+    <div class="stat">
+        <h3 data-target="4">0</h3>
+        <p>Academic Programs</p>
+    </div>
+
+    <div class="stat">
+        <h3 data-target="25">0</h3>
+        <p>Faculty & Researchers</p>
+    </div>
+
+    <div class="stat">
+        <h3 data-target="500">0</h3>
+        <p>Students</p>
+    </div>
+
+    <div class="stat">
+        <h3 data-target="15">0</h3>
+        <p>Research Areas</p>
+    </div>
+</div>
+
+<!-- About -->
+<section id="about" class="reveal">
+    <div class="section-heading">
+        <span>Who We Are</span>
+        <h2>About the Department</h2>
+        <p>
+            A technology-focused academic environment designed to transform
+            curiosity into innovation.
+        </p>
+    </div>
+
+    <div class="card" style="min-height:auto;">
+        <p style="font-size:1rem; line-height:2; color:rgba(255,255,255,.65);">
+            The Department of Computer Science provides quality education and
+            develops technical and problem-solving skills among students.
+            Our academic programs combine fundamental computer science concepts
+            with emerging technologies such as Artificial Intelligence,
+            Data Science, Cloud Computing and Computer Networks.
+        </p>
+    </div>
+</section>
+
+<!-- Programs -->
+<section id="programs" class="reveal">
+    <div class="section-heading">
+        <span>Education</span>
+        <h2>Programs Offered</h2>
+        <p>
+            Choose a path and develop the skills needed for the modern digital world.
+        </p>
+    </div>
+
+    <div class="cards">
+
+        <div class="card">
+            <div class="card-icon">💻</div>
+            <h3>BCA</h3>
+            <p>
+                Build strong foundations in programming, databases,
+                web development and software engineering.
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="card-icon">🧠</div>
+            <h3>MCA</h3>
+            <p>
+                Advanced computer applications with modern software
+                development and technology practices.
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="card-icon">⚡</div>
+            <h3>B.Tech CSE</h3>
+            <p>
+                Engineering-focused computer science education covering
+                algorithms, systems and emerging technologies.
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="card-icon">🚀</div>
+            <h3>M.Tech CSE</h3>
+            <p>
+                Advanced technical education and research-oriented
+                specialization in computer science.
+            </p>
+        </div>
+
+    </div>
+</section>
+
+<!-- Faculty -->
+<section id="faculty" class="reveal">
+    <div class="section-heading">
+        <span>Our Team</span>
+        <h2>Faculty Members</h2>
+        <p>
+            Experienced educators guiding students toward innovation and research.
+        </p>
+    </div>
+
+    <div class="faculty-grid">
+
+        <div class="faculty">
+            <div class="avatar">AS</div>
+            <h3>Dr. Amit Sharma</h3>
+            <div class="role">Professor</div>
+            <p>Specialization: Artificial Intelligence</p>
+        </div>
+
+        <div class="faculty">
+            <div class="avatar">NV</div>
+            <h3>Dr. Neha Verma</h3>
+            <div class="role">Associate Professor</div>
+            <p>Specialization: Data Science</p>
+        </div>
+
+        <div class="faculty">
+            <div class="avatar">RS</div>
+            <h3>Mr. Rahul Singh</h3>
+            <div class="role">Assistant Professor</div>
+            <p>Specialization: Computer Networks</p>
+        </div>
+
+    </div>
+</section>
+
+<!-- Notices -->
+<section id="notices" class="reveal">
+    <div class="section-heading">
+        <span>Latest Updates</span>
+        <h2>Important Notices</h2>
+    </div>
+
+    <div class="notice-box">
+
+        <div class="notice">
+            <div class="notice-number">01</div>
+            <p>
+                Mid-term examinations will begin from 15 September.
+            </p>
+        </div>
+
+        <div class="notice">
+            <div class="notice-number">02</div>
+            <p>
+                Students must submit their assignments before the deadline.
+            </p>
+        </div>
+
+        <div class="notice">
+            <div class="notice-number">03</div>
+            <p>
+                Registration for the seminar is now open.
+            </p>
+        </div>
+
+    </div>
+</section>
+
+<!-- Contact -->
+<section id="contact" class="reveal">
+    <div class="section-heading">
+        <span>Get In Touch</span>
+        <h2>Contact Us</h2>
+    </div>
+
+    <div class="contact-box">
+
+        <div class="contact-item">
+            <span>Department</span>
+            <p>
+                Department of Computer Science<br>
+                XYZ University<br>
+                Jaipur, Rajasthan
+            </p>
+        </div>
+
+        <div class="contact-item">
+            <span>Email</span>
+            <p>
+                cs@xyzuniversity.edu
+            </p>
+        </div>
+
+        <div class="contact-item">
+            <span>Academic Office</span>
+            <p>
+                Monday – Friday<br>
+                9:00 AM – 5:00 PM
+            </p>
+        </div>
+
+        <div class="contact-item">
+            <span>Admissions</span>
+            <p>
+                Contact the university admission office
+                for current admission information.
+            </p>
+        </div>
+
+    </div>
+</section>
+
+<!-- Footer -->
+<footer>
+    © 2026 XYZ University · Department of Computer Science
+    <br>
+    Designed with HTML, CSS, JavaScript & Three.js
+</footer>
+
+<!-- Modal -->
+<div class="modal" id="modal">
+    <div class="modal-content">
+        <button class="close-modal" onclick="closeModal()">×</button>
+
+        <h2>Computer Science Department</h2>
+
+        <p>
+            Explore computer science through programming, artificial intelligence,
+            data science, networking, software engineering and research.
+        </p>
+
+        <button class="btn btn-primary" onclick="closeModal()">
+            Explore Website
+        </button>
+    </div>
+</div>
+
+<script>
+/* =========================================
+   MOBILE NAVIGATION
+========================================= */
+
+const menuBtn = document.getElementById("menuBtn");
+const navLinks = document.getElementById("navLinks");
+
+menuBtn.addEventListener("click", () => {
+    navLinks.classList.toggle("show");
+});
+
+document.querySelectorAll(".nav-links a").forEach(link => {
+    link.addEventListener("click", () => {
+        navLinks.classList.remove("show");
+    });
+});
+
+
+/* =========================================
+   NAVBAR SCROLL EFFECT
+========================================= */
+
+const header = document.getElementById("header");
+
+window.addEventListener("scroll", () => {
+
+    if (window.scrollY > 50) {
+        header.classList.add("scrolled");
+    } else {
+        header.classList.remove("scrolled");
+    }
+
+});
+
+
+/* =========================================
+   ACTIVE NAVIGATION
+========================================= */
+
+const sections = document.querySelectorAll("section, .hero");
+const links = document.querySelectorAll(".nav-links a");
+
+window.addEventListener("scroll", () => {
+
+    let current = "";
+
+    sections.forEach(section => {
+
+        const sectionTop = section.offsetTop - 150;
+
+        if (window.scrollY >= sectionTop) {
+            current = section.getAttribute("id");
+        }
+
+    });
+
+    links.forEach(link => {
+
+        link.classList.remove("active");
+
+        if (link.getAttribute("href") === "#" + current) {
+            link.classList.add("active");
+        }
+
+    });
+
+});
+
+
+/* =========================================
+   SCROLL REVEAL
+========================================= */
+
+const observer = new IntersectionObserver(
+    entries => {
+
+        entries.forEach(entry => {
+
+            if (entry.isIntersecting) {
+                entry.target.classList.add("show");
+            }
+
+        });
+
+    },
+    {
+        threshold: 0.15
+    }
+);
+
+document.querySelectorAll(".reveal").forEach(element => {
+    observer.observe(element);
+});
+
+
+/* =========================================
+   ANIMATED COUNTERS
+========================================= */
+
+const counters = document.querySelectorAll("[data-target]");
+
+let counterStarted = false;
+
+function startCounters() {
+
+    if (counterStarted) return;
+
+    const stats = document.querySelector(".stats");
+
+    const rect = stats.getBoundingClientRect();
+
+    if (rect.top < window.innerHeight) {
+
+        counterStarted = true;
+
+        counters.forEach(counter => {
+
+            const target = Number(counter.dataset.target);
+            let current = 0;
+
+            const increment = Math.max(1, Math.ceil(target / 60));
+
+            const timer = setInterval(() => {
+
+                current += increment;
+
+                if (current >= target) {
+                    current = target;
+                    clearInterval(timer);
+                }
+
+                counter.textContent = current + "+";
+
+            }, 25);
+
+        });
+
+    }
+
+}
+
+window.addEventListener("scroll", startCounters);
+startCounters();
+
+
+/* =========================================
+   MODAL
+========================================= */
+
+const modal = document.getElementById("modal");
+
+function openModal() {
+    modal.classList.add("show");
+}
+
+function closeModal() {
+    modal.classList.remove("show");
+}
+
+modal.addEventListener("click", event => {
+
+    if (event.target === modal) {
+        closeModal();
+    }
+
+});
+
+document.addEventListener("keydown", event => {
+
+    if (event.key === "Escape") {
+        closeModal();
+    }
+
+});
+
+
+/* =========================================
+   PARTICLE BACKGROUND
+========================================= */
+
+const particleCanvas = document.getElementById("particles");
+const ctx = particleCanvas.getContext("2d");
+
+let particles = [];
+
+function resizeParticles() {
+
+    particleCanvas.width = window.innerWidth;
+    particleCanvas.height = window.innerHeight;
+
+}
+
+resizeParticles();
+
+window.addEventListener("resize", resizeParticles);
+
+for (let i = 0; i < 90; i++) {
+
+    particles.push({
+        x: Math.random() * window.innerWidth,
+        y: Math.random() * window.innerHeight,
+        r: Math.random() * 1.8 + .4,
+        dx: (Math.random() - .5) * .25,
+        dy: (Math.random() - .5) * .25
+    });
+
+}
+
+function animateParticles() {
+
+    ctx.clearRect(
+        0,
+        0,
+        particleCanvas.width,
+        particleCanvas.height
+    );
+
+    particles.forEach(p => {
+
+        p.x += p.dx;
+        p.y += p.dy;
+
+        if (p.x < 0 || p.x > window.innerWidth)
+            p.dx *= -1;
+
+        if (p.y < 0 || p.y > window.innerHeight)
+            p.dy *= -1;
+
+        ctx.beginPath();
+
+        ctx.arc(
+            p.x,
+            p.y,
+            p.r,
+            0,
+            Math.PI * 2
+        );
+
+        ctx.fillStyle = "rgba(80,220,255,.5)";
+        ctx.fill();
+
+    });
+
+    requestAnimationFrame(animateParticles);
+
+}
+
+animateParticles();
+
+
+/* =========================================
+   THREE.JS 3D COMPUTER VISUALIZATION
+========================================= */
+
+const container = document.getElementById("three-container");
+
+const scene = new THREE.Scene();
+
+const camera = new THREE.PerspectiveCamera(
+    45,
+    container.clientWidth / container.clientHeight,
+    0.1,
+    1000
+);
+
+camera.position.set(0, 1.5, 7);
+
+const renderer = new THREE.WebGLRenderer({
+    antialias: true,
+    alpha: true
+});
+
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+renderer.setSize(
+    container.clientWidth,
+    container.clientHeight
+);
+
+renderer.setClearColor(0x000000, 0);
+
+container.appendChild(renderer.domElement);
+
+
+/* Lights */
+
+const ambientLight = new THREE.AmbientLight(
+    0xffffff,
+    1.8
+);
+
+scene.add(ambientLight);
+
+const blueLight = new THREE.PointLight(
+    0x00d4ff,
+    8,
+    20
+);
+
+blueLight.position.set(3, 3, 4);
+
+scene.add(blueLight);
+
+const purpleLight = new THREE.PointLight(
+    0x7c3aed,
+    7,
+    20
+);
+
+purpleLight.position.set(-4, -2, 3);
+
+scene.add(purpleLight);
+
+
+/* Main computer group */
+
+const computer = new THREE.Group();
+
+scene.add(computer);
+
+
+/* Monitor */
+
+const monitorMaterial = new THREE.MeshStandardMaterial({
+    color: 0x111827,
+    metalness: .7,
+    roughness: .25
+});
+
+const monitor = new THREE.Mesh(
+    new THREE.BoxGeometry(3.8, 2.4, .25),
+    monitorMaterial
+);
+
+monitor.position.y = 1;
+
+computer.add(monitor);
+
+
+/* Screen */
+
+const screenMaterial = new THREE.MeshStandardMaterial({
+    color: 0x071827,
+    emissive: 0x003b55,
+    emissiveIntensity: 1.5,
+    metalness: .2,
+    roughness: .2
+});
+
+const screen = new THREE.Mesh(
+    new THREE.BoxGeometry(3.45, 2.05, .08),
+    screenMaterial
+);
+
+screen.position.set(0, 1, .17);
+
+computer.add(screen);
+
+
+/* Screen code lines */
+
+const codeGroup = new THREE.Group();
+
+for (let i = 0; i < 8; i++) {
+
+    const width = Math.random() * 1.5 + .7;
+
+    const line = new THREE.Mesh(
+        new THREE.BoxGeometry(width, .045, .02),
+        new THREE.MeshBasicMaterial({
+            color: i % 2 === 0 ? 0x00d4ff : 0x8b5cf6
+        })
+    );
+
+    line.position.set(
+        -1.35 + width / 2,
+        1.65 - i * .23,
+        .23
+    );
+
+    codeGroup.add(line);
+
+}
+
+computer.add(codeGroup);
+
+
+/* Monitor stand */
+
+const stand = new THREE.Mesh(
+    new THREE.BoxGeometry(.35, .8, .3),
+    monitorMaterial
+);
+
+stand.position.y = -.6;
+
+computer.add(stand);
+
+
+/* Monitor base */
+
+const base = new THREE.Mesh(
+    new THREE.BoxGeometry(1.6, .12, .8),
+    monitorMaterial
+);
+
+base.position.y = -1;
+
+computer.add(base);
+
+
+/* Keyboard */
+
+const keyboard = new THREE.Mesh(
+    new THREE.BoxGeometry(3.2, .15, 1.1),
+    new THREE.MeshStandardMaterial({
+        color: 0x1f2937,
+        metalness: .5,
+        roughness: .3
+    })
+);
+
+keyboard.position.set(
+    0,
+    -.85,
+    1.35
+);
+
+keyboard.rotation.x = -.12;
+
+computer.add(keyboard);
+
+
+/* Keyboard keys */
+
+for (let row = 0; row < 4; row++) {
+
+    for (let col = 0; col < 12; col++) {
+
+        const key = new THREE.Mesh(
+            new THREE.BoxGeometry(.18, .04, .14),
+            new THREE.MeshStandardMaterial({
+                color: col % 4 === 0 ? 0x00d4ff : 0x374151,
+                emissive: col % 4 === 0 ? 0x003344 : 0x000000
+            })
+        );
+
+        key.position.set(
+            -1.3 + col * .23,
+            -.74,
+            .95 + row * .2
+        );
+
+        computer.add(key);
+
+    }
+
+}
+
+
+/* Floating technology rings */
+
+const ringGroup = new THREE.Group();
+
+for (let i = 0; i < 4; i++) {
+
+    const ring = new THREE.Mesh(
+        new THREE.TorusGeometry(
+            2.6 + i * .3,
+            .015,
+            12,
+            100
+        ),
+        new THREE.MeshBasicMaterial({
+            color: i % 2 === 0 ? 0x00d4ff : 0x7c3aed,
+            transparent: true,
+            opacity: .5
+        })
+    );
+
+    ring.rotation.x = Math.PI / 2;
+    ring.rotation.z = i * .5;
+
+    ringGroup.add(ring);
+
+}
+
+scene.add(ringGroup);
+
+
+/* Floating particles around computer */
+
+const starGeometry = new THREE.BufferGeometry();
+
+const starPositions = [];
+
+for (let i = 0; i < 250; i++) {
+
+    starPositions.push(
+        (Math.random() - .5) * 12,
+        (Math.random() - .5) * 8,
+        (Math.random() - .5) * 8
+    );
+
+}
+
+starGeometry.setAttribute(
+    "position",
+    new THREE.Float32BufferAttribute(
+        starPositions,
+        3
+    )
+);
+
+const stars = new THREE.Points(
+    starGeometry,
+    new THREE.PointsMaterial({
+        color: 0x61e7ff,
+        size: .025,
+        transparent: true,
+        opacity: .7
+    })
+);
+
+scene.add(stars);
+
+
+/* Mouse interaction */
+
+let mouseX = 0;
+let mouseY = 0;
+let targetX = 0;
+let targetY = 0;
+
+window.addEventListener("mousemove", event => {
+
+    mouseX =
+        (event.clientX / window.innerWidth) * 2 - 1;
+
+    mouseY =
+        (event.clientY / window.innerHeight) * 2 - 1;
+
+});
+
+
+/* Touch interaction */
+
+window.addEventListener("touchmove", event => {
+
+    if (!event.touches.length) return;
+
+    mouseX =
+        (event.touches[0].clientX / window.innerWidth) * 2 - 1;
+
+    mouseY =
+        (event.touches[0].clientY / window.innerHeight) * 2 - 1;
+
+});
+
+
+/* Resize */
+
+window.addEventListener("resize", () => {
+
+    const width = container.clientWidth;
+    const height = container.clientHeight;
+
+    camera.aspect = width / height;
+    camera.updateProjectionMatrix();
+
+    renderer.setSize(width, height);
+
+});
+
+
+/* 3D animation */
+
+const clock = new THREE.Clock();
+
+function animate3D() {
+
+    requestAnimationFrame(animate3D);
+
+    const elapsed = clock.getElapsedTime();
+
+    targetX += (mouseX - targetX) * .04;
+    targetY += (mouseY - targetY) * .04;
+
+    /* Computer rotation */
+
+    computer.rotation.y =
+        targetX * .45 + Math.sin(elapsed * .5) * .08;
+
+    computer.rotation.x =
+        targetY * -.2;
+
+    computer.position.y =
+        Math.sin(elapsed * 1.2) * .12;
+
+    /* Floating rings */
+
+    ringGroup.rotation.y = elapsed * .12;
+    ringGroup.rotation.x =
+        Math.sin(elapsed * .3) * .2;
+
+    /* Stars */
+
+    stars.rotation.y = elapsed * .015;
+    stars.rotation.x = Math.sin(elapsed * .1) * .05;
+
+    /* Lights */
+
+    blueLight.position.x =
+        Math.sin(elapsed) * 4;
+
+    blueLight.position.z =
+        Math.cos(elapsed) * 4;
+
+    purpleLight.position.x =
+        Math.cos(elapsed * .7) * 4;
+
+    renderer.render(scene, camera);
+
+}
+
+animate3D();
+</script>
+
+</body>
+</html>
+```<!-- Footer -->
+
+<footer>
+    <div>
+        © 2026 XYZ University · Department of Computer Science
+        <br>
+        Designed with HTML, CSS, JavaScript & Three.js
+    </div>
+
+```
+<!-- -->
+<div class="BY">
+    <span>Created by</span>
+    <strong>UTTAM KUMAR</strong>
+</div>
+```
+
+</footer>
